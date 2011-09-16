@@ -14,6 +14,7 @@ class Mythtv < Formula
   depends_on 'DBI' => :perl
   depends_on 'Net::UPnP::QueryResponse' => :perl
   depends_on 'Net::UPnP::ControlPoint' => :perl
+  depends_on 'python'
   depends_on 'lxml' => :python
 
   def install
