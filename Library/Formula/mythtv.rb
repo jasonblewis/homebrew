@@ -1,9 +1,5 @@
 require 'formula'
 
-#class Mythtv < Formula
-#  depends_on 'qt'
-#end
-
 class Mythtv < Formula
   url 'https://nodeload.github.com/MythTV/mythtv/tarball/fixes/0.24'
   homepage 'http://www.mythtv.org'
@@ -21,23 +17,18 @@ class Mythtv < Formula
   depends_on 'lxml' => :python
 
   def install
-#    ENV['CC'] = "gcc-4.6"
-#    ENV['CXX'] = "g++-4.6"
 
     cd('mythtv')
     system "./configure", "--disable-debug", "--prefix=#{prefix}", "--disable-distcc",
           "--arch=x86_64",
-	  "--disable-firewire",
-    "--disable-iptv",
-    "--disable-hdhomerun",
-    "--disable-v4l",      
-    "--disable-ivtv",     
-    "--disable-hdpvr",    
-    "--disable-dvb",
-    "--compile-type=debug"
-#    "--cc=gcc-4.6",
- #   "--cxx=g++-4.6"
-    
+      	  "--disable-firewire",
+          "--disable-iptv",
+          "--disable-hdhomerun",
+          "--disable-v4l",      
+          "--disable-ivtv",     
+          "--disable-hdpvr",    
+          "--disable-dvb"
+        
     system "make install"
     cd('..')
   end
