@@ -11,10 +11,9 @@ class Mythtv < Formula
   depends_on 'qt'
   depends_on 'lame'
   depends_on 'python'
-  depends_on 'DBI' => :perl
-  depends_on 'Net::UPnP::QueryResponse' => :perl
-  depends_on 'Net::UPnP::ControlPoint' => :perl
-  depends_on 'python'
+  depends_on 'DBI' => :perl   # cpan DBI
+  depends_on 'Net::UPnP::QueryResponse' => :perl    # cpan Net::UPnP::QueryResponse
+  depends_on 'Net::UPnP::ControlPoint' => :perl   # sudo easy_install lxml    until i find a better way
   depends_on 'lxml' => :python
 
   def install
