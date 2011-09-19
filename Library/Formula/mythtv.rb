@@ -9,11 +9,29 @@ class Mythtv < Formula
   depends_on 'yasm'
   depends_on 'mysql'
   depends_on 'qt'
+  # check also that qt was installed with the --enable-qt3support and  warn user if not:
+  unless system 'pkg-config', '--exists', 'Qt3Support'; onoe 'No QT3 support in QT. Please reinstall qt with --enable-qt3-support'; exit 1 end
   depends_on 'lame'
   depends_on 'python'
   depends_on 'DBI' => :perl   # cpan DBI
+  depends_on 'DBD::mysql' => :perl   
+  depends_on 'Date::Manip' => :perl  
   depends_on 'Net::UPnP::QueryResponse' => :perl    # cpan Net::UPnP::QueryResponse
   depends_on 'Net::UPnP::ControlPoint' => :perl   # sudo easy_install lxml    until i find a better way
+  depends_on 'ExtUtils::Install' => :perl
+  
+  # needed for the perl bindings
+  depends_on 'Exporter'         => :perl
+  depends_on 'Config'           => :perl
+  depends_on 'Fcntl'            => :perl
+  depends_on 'File::Copy'       => :perl
+  depends_on 'HTTP::Request'    => :perl
+  depends_on 'IO::Socket::INET' => :perl
+  depends_on 'LWP::UserAgent'   => :perl
+  depends_on 'Sys::Hostname'    => :perl
+  
+
+  
   depends_on 'lxml' => :python
 
   def install
@@ -22,15 +40,23 @@ class Mythtv < Formula
     system "./configure", "--disable-debug", "--prefix=#{prefix}", "--disable-distcc",
           "--arch=x86_64",
       	  "--disable-firewire",
-          "--disable-iptv",
-          "--disable-hdhomerun",
-          "--disable-v4l",      
-          "--disable-ivtv",     
-          "--disable-hdpvr",    
-          "--disable-dvb"
-        
-    system "make install"
-    cd('..')
+##          "--disable-iptv",
+#          "--disable-hdhomerun",
+#          "--disable-v4l",      
+#          "--disable-ivtv",     
+#          "--disable-hdpvr",    
+#          "--disable-dvb",
+          "--disable-filters",
+          "--disable-avfilter",
+          "--with-bindings=",
+#          "--disable-yasm",
+#    "--enable-pic",
+    "--cc=/usr/bin/gcc-4.2",
+    "--cxx=/usr/bin/g++-4.2"
+   system "make"
+   system "make install"
+   
+     cd('..')
   end
 
   def test
