@@ -53,8 +53,13 @@ class Mythtv < Formula
 #    "--enable-pic",
     "--cc=/usr/bin/gcc-4.2",
     "--cxx=/usr/bin/g++-4.2"
-   system "make"
-   system "make install"
+    system "make"
+    
+    #abort 'exiting for testing purposes'
+    #raise 'exiting for testing purposes'
+    #interactive_shell
+
+    system "make install"
    
      cd('..')
   end
