@@ -12,7 +12,7 @@ class Mythtv < Formula
   depends_on 'mysql'
   depends_on 'qt'
   # check also that qt was installed with the --enable-qt3support and  warn user if not:
-  unless system 'pkg-config', '--exists', 'Qt3Support'; onoe 'No QT3 support in QT. Please reinstall qt with --enable-qt3-support'; exit 1 end
+  unless system 'pkg-config', '--exists', 'Qt3Support'; onoe 'No QT3 support in QT. Please reinstall qt with --enable-qt3support'; exit 1 end
   depends_on 'lame'
   depends_on 'python'
   depends_on 'DBI' => :perl   # cpan DBI
