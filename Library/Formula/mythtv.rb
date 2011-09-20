@@ -6,6 +6,8 @@ class Mythtv < Formula
   md5 'd27c33d67ea8d5d5a6279f7b4844002c'
   version "0.24.1"
 
+  head 'git://github.com/MythTV/mythtv.git'
+  
   depends_on 'yasm'
   depends_on 'mysql'
   depends_on 'qt'
