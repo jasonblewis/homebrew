@@ -7,7 +7,6 @@ class Mythtv < Formula
   version "0.24.1"
 
   head 'git://github.com/MythTV/mythtv.git'
-  #head '/Users/jason/mythtv-master', :branch => 'master', :using => :git
   
   #TODO
   # ensure SIMBL is installed
