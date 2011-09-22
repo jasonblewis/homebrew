@@ -7,6 +7,15 @@ class Mythtv < Formula
   version "0.24.1"
 
   head 'git://github.com/MythTV/mythtv.git'
+  #head '/Users/jason/mythtv-master', :branch => 'master', :using => :git
+  
+  #TODO
+  # ensure SIMBL is installed
+
+  #TODO
+  # ensure file ~/Library/Application\
+  # Support/SIMBL/Plugins/megazoomer.bundle/Contents/MacOS/megazoomer
+  # | grep x86_64   returns something, ie megazoomer 64 bit is installed
   
   depends_on 'yasm'
   depends_on 'mysql'
@@ -15,6 +24,7 @@ class Mythtv < Formula
   unless system 'pkg-config', '--exists', 'Qt3Support'; onoe 'No QT3 support in QT. Please reinstall qt with: brew install qt --with-qt3support'; exit 1 end
   depends_on 'lame'
   depends_on 'python'
+  # depends_on 'urlgrabber' => :python
   depends_on 'DBI' => :perl   # cpan DBI
   depends_on 'DBD::mysql' => :perl   
   depends_on 'Date::Manip' => :perl  
@@ -48,10 +58,9 @@ class Mythtv < Formula
 #          "--disable-ivtv",     
 #          "--disable-hdpvr",    
 #          "--disable-dvb",
-          "--disable-filters",
-          "--disable-avfilter",
-          "--with-bindings=",
-#          "--disable-yasm",
+#          "--disable-filters",
+#          "--disable-avfilter",
+#          "--with-bindings=",
 #    "--enable-pic",
     "--cc=/usr/bin/gcc-4.2",
     "--cxx=/usr/bin/g++-4.2"
