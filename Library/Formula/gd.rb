@@ -7,6 +7,7 @@ class Gd < Formula
 
   homepage "http://bitbucket.org/pierrejoye/gd-libgd"
   url "http://download.osgeo.org/mapserver/libgd/gd-2.0.36RC1.tar.gz"
+  mirrir "https://bitbucket.org/pierrejoye/gd-libgd/get/GD_2_0_34RC1.tar.gz"
   md5 "39ac48e6d5e0012a3bd2248a0102f209"
 
   head "http://bitbucket.org/pierrejoye/gd-libgd", :using => :hg
@@ -16,10 +17,12 @@ class Gd < Formula
   fails_with_llvm "Undefined symbols when linking", :build => "2326"
 
   def install
+    cd('src')
     ENV.x11
     system "./configure", "--prefix=#{prefix}", "--with-freetype=/usr/X11"
     system "make install"
     (lib+'pkgconfig/gdlib.pc').write pkg_file
+    cd('..')
   end
 
   def pkg_file; <<-EOF
