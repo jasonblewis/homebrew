@@ -9,6 +9,39 @@ class Mythtv < Formula
 
   head 'git://github.com/MythTV/mythtv.git'
     
+
+  def caveats; <<-EOS.undent
+  This script builds mythfrontend, mythbackend and the mythtv plugins. It defaults to installing .24-fixes branch but it does include a --HEAD option with caveates. 
+
+  To build:
+  1. mythtv requires qt with qt3support compiled in:
+     > brew install qt --with-qt3support
+  2. then build mythtv
+     > brew install mythtv
+ 
+  Currently brew has no way to install HEAD of a formula without requiring HEAD on all its dependencies.
+  So to build mythtv HEAD requires HEAD of Qt which is undesireable.
+
+  To build head:
+  1. if you haveing already, build the fixes version of mythtv (to ensure all deps are satisfied)
+     > brew install mythtv 
+  2. then uninstall mythtv
+     > brew uninstall mythtv
+  3. then install mythtv head using
+     > brew install --ignore-dependencies --HEAD mythtv
+
+  Python dependencies:
+    brew does not install python depencencies, for that it recomments easy_install
+    however I found that easy_install often failed. try pip or simply manually download and install the python dependency
+
+  Perl dependencies:
+    Perl debencencies can be installed with cpan -i <module name>.
+
+    EOS
+  end
+
+
+
   #TODO
   # ensure SIMBL is installed
 
@@ -20,6 +53,7 @@ class Mythtv < Formula
   depends_on 'yasm'
   depends_on 'mysql'
   depends_on 'qt'
+  depends_on 'pkg-config'
   # check also that qt was installed with the --enable-qt3support and  warn user if not:
   unless system 'pkg-config', '--exists', 'Qt3Support'; onoe 'No QT3 support in QT. Please reinstall qt with: brew install qt --with-qt3support'; exit 1 end
   depends_on 'lame'
@@ -151,35 +185,6 @@ class Mythtv < Formula
     
   end
 
-  def caveats; <<-EOS.undent
-  This script builds mythfrontend, mythbackend and the mythtv plugins. It defaults to installing .24-fixes branch but it does include a --HEAD option with caveates. 
-
-  To build:
-  1. mythtv requires qt with qt3support compiled in:
-     > brew install qt --with-qt3support
-  2. then build mythtv
-     > brew install mythtv
- 
-  Currently brew has no way to install HEAD of a formula without requiring HEAD on all its dependencies.
-  So to build mythtv HEAD requires HEAD of Qt which is undesireable.
-
-  To build head:
-  1. if you haveing already, build the fixes version of mythtv (to ensure all deps are satisfied)
-     > brew install mythtv 
-  2. then uninstall mythtv
-     > brew uninstall mythtv
-  3. then install mythtv head using
-     > brew install --ignore-dependencies --HEAD mythtv
-
-  Python dependencies:
-    brew does not install python depencencies, for that it recomments easy_install
-    however I found that easy_install often failed. try pip or simply manually download and install the python dependency
-
-  Perl dependencies:
-    Perl debencencies can be installed with cpan -i <module name>.
-
-    EOS
-  end
 
 
 
