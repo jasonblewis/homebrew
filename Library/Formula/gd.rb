@@ -7,11 +7,14 @@ class Gd < Formula
 
   homepage "http://bitbucket.org/pierrejoye/gd-libgd"
   #url "http://download.osgeo.org/mapserver/libgd/gd-2.0.36RC1.tar.gz"
-  url "https://bitbucket.org/pierrejoye/gd-libgd/get/GD_2_0_34RC1.tar.gz"
-  md5 "b26a9134e90c03df9918442a01bcd4c4"
+  #url "https://bitbucket.org/pierrejoye/gd-libgd/get/GD_2_0_34RC1.tar.gz"
+  url "https://bitbucket.org/pierrejoye/gd-libgd/get/GD_2_0_33.tar.gz"
+  md5 "2ac0b29a3afebd44445bf5a3498eb2a4"
+  #md5 "b26a9134e90c03df9918442a01bcd4c4"
   #md5 "39ac48e6d5e0012a3bd2248a0102f209"
-
-  head "http://bitbucket.org/pierrejoye/gd-libgd", :using => :hg
+  version "2.0.33"
+  
+  #head "http://bitbucket.org/pierrejoye/gd-libgd", :using => :hg
 
   depends_on 'jpeg' => :recommended
 
