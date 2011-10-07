@@ -54,6 +54,8 @@ class Mythtv < Formula
   depends_on 'mysql'
   depends_on 'qt'
   depends_on 'pkg-config'
+  # check pkg-config is installed prior to testing if qt3 is installed
+  unless Formula.factory('pkg-config').installed? ; onoe 'pkg-config is not installed, please install: brew install pkg-config' ; exit 1 end
   # check also that qt was installed with the --enable-qt3support and  warn user if not:
   unless system 'pkg-config', '--exists', 'Qt3Support'; onoe 'No QT3 support in QT. Please reinstall qt with: brew install qt --with-qt3support'; exit 1 end
   depends_on 'lame'
