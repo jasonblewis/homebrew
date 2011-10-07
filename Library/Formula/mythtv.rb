@@ -60,6 +60,7 @@ class Mythtv < Formula
   unless system 'pkg-config', '--exists', 'Qt3Support'; onoe 'No QT3 support in QT. Please reinstall qt with: brew install qt --with-qt3support'; exit 1 end
   depends_on 'lame'
   depends_on 'python'
+  depends_on 'pycurl' => :python
   depends_on 'urlgrabber' => :python
   depends_on 'DBI' => :perl   # cpan DBI
   depends_on 'DBD::mysql' => :perl   
@@ -83,7 +84,6 @@ class Mythtv < Formula
   depends_on 'lxml' => :python
 
   # for MythNetVision:
-  depends_on 'pycurl' => :python
   depends_on 'oauth'  => :python
 
   # for MythWeather:
