@@ -97,7 +97,21 @@ class Emacs < Formula
   def caveats
     s = "For build options see:\n  brew options emacs\n\n"
     if ARGV.include? "--cocoa"
-      s += <<-EOS.undent
+      if MACOS_VERSION >= 10.7
+        s += <<-EOS.undent
+        Emacs.app was installed to:
+          #{prefix}
+
+        To be able to launch emacs from spotlight
+          cp -a  #{prefix}/Emacs.app /Applications
+
+
+        Command-line emacs can be used by setting up an alias:
+          alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
+
+        EOS
+      else
+        s += <<-EOS.undent
         Emacs.app was installed to:
           #{prefix}
 
@@ -109,7 +123,8 @@ class Emacs < Formula
          or:
            ln -s #{prefix}/Emacs.app /Applications
 
-      EOS
+        EOS
+      end
     end
 
     s += <<-EOS.undent

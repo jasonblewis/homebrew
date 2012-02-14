@@ -8,7 +8,8 @@ class Qt < Formula
   bottle 'https://downloads.sf.net/project/machomebrew/Bottles/qt-4.7.4-bottle.tar.gz'
   bottle_sha1 '3195cddb76c0d13b4500dc75cc55f20f00c10ef1'
 
-  head 'git://gitorious.org/qt/qt.git', :branch => 'master'
+#  head 'git://gitorious.org/qt/qt.git', :branch => 'master'
+  head '/Users/jason/qt', :branch => 'master', :using => :git
 
   def patches
     [
