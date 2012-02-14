@@ -6,20 +6,9 @@ class Qt < Formula
   md5 'e8a5fdbeba2927c948d9f477a6abe904'
   homepage 'http://qt.nokia.com/'
 
-<<<<<<< HEAD
-#  head 'git://gitorious.org/qt/qt.git', :branch => 'master'
-  head '/Users/jason/qt', :branch => 'master', :using => :git
-
-  def patches
-    [
-      # Stop complaining about using Lion
-      "https://qt.gitorious.org/qt/qt/commit/1766bbdb53e1e20a1bbfb523bbbbe38ea7ab7b3d?format=patch"
-    ]
-=======
   bottle do
     url 'https://downloads.sf.net/project/machomebrew/Bottles/qt-4.8.0-bottle.tar.gz'
     sha1 '2bfe00c5112b0d2a680cd01144701f8937846096'
->>>>>>> f884112b235f49fcfe579b800d45a4daa7f0d52d
   end
 
   head 'git://gitorious.org/qt/qt.git', :branch => 'master'
