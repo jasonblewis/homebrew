@@ -2,7 +2,8 @@ require 'formula'
 
 class Mythtv < Formula
   #url 'https://nodeload.github.com/MythTV/mythtv/tarball/fixes/0.24'
-  url 'https://github.com/MythTV/mythtv.git', :branch => 'fixes/0.24'
+  url 'git://github.com/jasonblewis/mythtv.git', :branch => '024fixes-machomebrew'
+  #url 'https://github.com/MythTV/mythtv.git', :branch => 'fixes/0.24'
   homepage 'http://www.mythtv.org'
   #md5 'd27c33d67ea8d5d5a6279f7b4844002c'
   version "0.24.fixes"
@@ -23,7 +24,7 @@ class Mythtv < Formula
   So to build mythtv HEAD requires HEAD of Qt which is undesireable.
 
   To build head:
-  1. if you haveing already, build the fixes version of mythtv (to ensure all deps are satisfied)
+  1. if you have not already, build the fixes version of mythtv (to ensure all deps are satisfied)
      > brew install mythtv 
   2. then uninstall mythtv
      > brew uninstall mythtv
@@ -50,6 +51,8 @@ class Mythtv < Formula
   # Support/SIMBL/Plugins/megazoomer.bundle/Contents/MacOS/megazoomer
   # | grep x86_64   returns something, ie megazoomer 64 bit is installed
   
+#  depends_on 'ffmpeg'
+# If it doesn't work you can try: brew install --use-clang
   depends_on 'yasm'
   depends_on 'mysql'
   depends_on 'qt'
@@ -102,6 +105,12 @@ class Mythtv < Formula
   depends_on 'fftw'  
   # currently no formula to build libvisual and my attempts to build it failed
   # depends_on 'libvisual' 
+
+  #def patches
+    # Patches go here
+  #  p = {:p0 => ['']}
+  #  return p
+  #end
  
   def install
 
