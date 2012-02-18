@@ -8,7 +8,7 @@ class Mythtv < Formula
   #md5 'd27c33d67ea8d5d5a6279f7b4844002c'
   version "0.24.fixes"
 
-  head 'git://github.com/MythTV/mythtv.git'
+  head 'git://github.com/jasonblewis/mythtv.git'
     
 
   def caveats; <<-EOS.undent
@@ -106,30 +106,43 @@ class Mythtv < Formula
   # currently no formula to build libvisual and my attempts to build it failed
   # depends_on 'libvisual' 
 
+  # if we are building HEAD we need to test if the perl JSON package
+  # is installed
+  if ARGV.include? "--HEAD"
+    unless system "perl", "-MJSON", "-e0"; onoe 'perl module JSON is not installed but is required for building HEAD. please install and try again.'; exit 1 end
+  end
+
   #def patches
     # Patches go here
   #  p = {:p0 => ['']}
   #  return p
   #end
+
+ 
  
   def install
 
     cd('mythtv')
-    system "./configure", "--disable-debug", "--prefix=#{prefix}", "--disable-distcc",
-          "--arch=x86_64",
-      	  "--disable-firewire",
-#          "--disable-iptv",
-#          "--disable-hdhomerun",
-#          "--disable-v4l",      
-#          "--disable-ivtv",     
-#          "--disable-hdpvr",    
-#          "--disable-dvb",
-#          "--disable-filters",
-#          "--disable-avfilter",
-#          "--with-bindings=",
-#          "--enable-pic",
-    "--cc=/usr/bin/gcc-4.2",
-    "--cxx=/usr/bin/g++-4.2"
+    configure_args = [
+                      "--disable-debug",
+                      "--prefix=#{prefix}",
+                      "--disable-distcc",
+                      "--arch=x86_64",
+                      "--disable-firewire",
+                      #          "--disable-iptv",
+                      #          "--disable-hdhomerun",
+                      #          "--disable-v4l",      
+                      #          "--disable-ivtv",     
+                      #          "--disable-hdpvr",    
+                      #          "--disable-dvb",
+                      #          "--disable-filters",
+                      #          "--disable-avfilter",
+                      #          "--with-bindings=",
+                      #          "--enable-pic",
+                      "--cc=/usr/bin/gcc-4.2",
+                      "--cxx=/usr/bin/g++-4.2"
+                     ]   
+    system "./configure", *configure_args
     system "make"
     
     #abort 'exiting for testing purposes'
@@ -139,48 +152,56 @@ class Mythtv < Formula
     system "make install"
    
     cd('..')
+
+    # now build the plugins
   
     cd('mythplugins')  
-    system "./configure",
-    "--prefix=#{prefix}",
-    "--arch=x86_64",
 
-    "--enable-opengl",
 
-    # MythArchive related options:
-    "--enable-mytharchive",
+    configure_args = [
+                      "--prefix=#{prefix}",
+                      "--arch=x86_64",
 
-    # MythBroswer realted options:
-    "--enable-mythbrowser",
+                      "--enable-opengl",
+                      
+                      # MythArchive related options:
+                      "--enable-mytharchive",
+                      
+                      # MythBroswer realted options:
+                      "--enable-mythbrowser",
+                      
+                      # MythGallery related options:
+                      "--enable-mythgallery",
+                      "--enable-exif",
+                      "--enable-new-exif",
+                      "--enable-dcraw",
+                      
+                      # MythGame related options
+                      "--enable-mythgame", # build the mythgame plugin
+                      
+                      
+                      #  MythMusic related options:
+                      "--enable-mythmusic",
+                      "--enable-fftw",
+                      #"--enable-sdl", not needed for head
+                      
+                      # MythNetvision related options:
+                      "--enable-mythnetvision", #  build the mythnetvision plugin [yes]
+                      
+                      # MythNews related options:
+                      "--enable-mythnews",       # build the mythnews plugin [yes]
+                      
+                      # MythWeather related options:
+                      "--enable-mythweather",   #  build the mythweather plugin [yes]
+                      # needs cpan JSON module for head
+                      
+                      #  MythZoneMinder related options:
+                      "--enable-mythzoneminder" #  build the mythzoneminder plugin [yes]
+                     ]   
+    configure_args << "--enable-libvisual" if not ARGV.include? '--HEAD'  #libvisual needed for .24 fixes but not master
+    configure_args << "--enable-sdl" if not ARGV.include? '--HEAD'  #libsdl needed for .24 fixes but not master
 
-    # MythGallery related options:
-    "--enable-mythgallery",
-    "--enable-exif",
-    "--enable-new-exif",
-    "--enable-dcraw",
-    
-    # MythGame related options
-    "--enable-mythgame", # build the mythgame plugin
-    
-    
-    #  MythMusic related options:
-    "--enable-mythmusic",
-    "--enable-libvisual",
-    "--enable-fftw",
-    "--enable-sdl",
-    
-    # MythNetvision related options:
-    "--enable-mythnetvision", #  build the mythnetvision plugin [yes]
-    
-    # MythNews related options:
-    "--enable-mythnews",       # build the mythnews plugin [yes]
-    
-    # MythWeather related options:
-    "--enable-mythweather",   #  build the mythweather plugin [yes]
-    
-    #  MythZoneMinder related options:
-    "--enable-mythzoneminder" #  build the mythzoneminder plugin [yes]
-
+    system "./configure", *configure_args
     
     #interactive_shell
 
